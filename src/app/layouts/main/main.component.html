@@ -1,0 +1,31 @@
+<app-form-modal
+  [ownerId]="isActivateColorId"
+  (isColor)="isActive($event)"
+  (numberItem)="itemId($event)"
+  (owners)="getOwners($event)"
+>
+</app-form-modal>
+<div class="card">
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Отчество</th>
+        <th scope="col">Количество Авто</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let o of owners" (click)="markId(o.id)" [ngClass]="{active: (isActivateColorId == o.id) && isColor}"
+          id="{{o.id}}" style="cursor: pointer">
+        <th>{{o.aLastName}}</th>
+        <td>{{o.aFirstName}}</td>
+        <td>{{o.aMiddleName}}</td>
+        <td>{{o.aCars.length}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-viewing [idItems]="isActivateColorId"></app-viewing>

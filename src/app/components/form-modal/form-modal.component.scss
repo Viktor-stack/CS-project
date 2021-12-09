@@ -1,0 +1,59 @@
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 1200px;
+    margin: 1.75rem auto;
+  }
+}
+
+.form-control {
+  width: 30%;
+
+  &.invalid {
+    border: 1px solid red;
+  }
+}
+
+.modal-footer {
+  justify-content: flex-start;
+}
+
+.formChildren {
+  .form-control {
+    width: 100%;
+  }
+}
+
+.custom-class {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  input {
+    margin: 5px;
+  }
+}
+
+.title-list {
+  list-style: none;
+  margin: 5px;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  li {
+    width: 344px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    & + li {
+      margin-left: 15px;
+    }
+
+    &:last-child {
+      width: 46px;
+    }
+  ;
+  }
+}

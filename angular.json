@@ -26,6 +26,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "bootstrap/dist/js/bootstrap.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

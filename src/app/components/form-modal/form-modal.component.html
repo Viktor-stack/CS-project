@@ -1,0 +1,133 @@
+<!-- Modal -->
+<div class="box m-3">
+  <form
+    [formGroup]="formButton">
+    <input type="hidden" formControlName="itemId">
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            (click)="openModal()" [disabled]="!formButton.invalid">
+      <img style="padding-right: 5px" src="/assets/plus.svg" alt="">
+      Добавить
+    </button>
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#modalVi"
+            [disabled]="formButton.invalid"
+            (click)="openModalDisabled()">
+      <img src="/assets/eye.svg" alt=""
+           style="padding-right: 5px"
+      >
+      Просмотр
+    </button>
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            [disabled]="formButton.invalid"
+            (click)="update()">
+      <img
+        src="/assets/edit.svg" alt=""
+        style="padding-right: 5px">
+      Редактировать
+    </button>
+    <button type="button" class="btn btn-primary m-2"
+            [disabled]="formButton.invalid"
+            (click)="deleteOwner()">
+      <img src="/assets/trash.svg" alt="" style="padding-right: 5px">
+      Удалить
+    </button>
+  </form>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="!isUpdate">Добваить</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="isUpdate">Редактировать</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="closeForm()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formOwners">
+          <div class="mb-3">
+            <label for="aLastName" class="form-label">Фамилия</label>
+            <input type="email" class="form-control" id="aLastName" formControlName="aLastName"
+                   [ngClass]="{'invalid':  formOwners.controls['aLastName'].invalid && formOwners.controls['aLastName'].touched}">
+          </div>
+          <div class="mb-3">
+            <label for="aFirstName" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="aFirstName" formControlName="aFirstName"
+                   [ngClass]="{'invalid':  formOwners.controls['aFirstName'].invalid && formOwners.controls['aFirstName'].touched}">
+          </div>
+          <div class="mb-3">
+            <label for="aMiddleName" class="form-label">Отчество</label>
+            <input type="text" class="form-control" id="aMiddleName" formControlName="aMiddleName"
+                   [ngClass]="{'invalid':  formOwners.controls['aMiddleName'].invalid && formOwners.controls['aMiddleName'].touched}">
+          </div>
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5 class="modal-title">Автомобили</h5>
+              <ul class="title-list">
+                <li>Гос номер</li>
+                <li>Марка</li>
+                <li>Модель</li>
+                <li>Год</li>
+                <li></li>
+              </ul>
+              <div formArrayName="aCars">
+                <div *ngFor="let cartsForm of cars.controls; let i = index">
+                  <div class="mb-3 custom-class" [formGroup]="cartsForm">
+                    <input type="text" class="form-control" formControlName="stateNumber"
+                           [ngClass]="{'invalid':  cartsForm.controls['stateNumber'].invalid && cartsForm.controls['stateNumber'].touched}">
+                    <input type="email" class="form-control" formControlName="manufacturerName"
+                           [ngClass]="{'invalid':  cartsForm.controls['manufacturerName'].invalid && cartsForm.controls['manufacturerName'].touched}">
+                    <input type="email" class="form-control" formControlName="modelName"
+                           [ngClass]="{'invalid':  cartsForm.controls['modelName'].invalid && cartsForm.controls['modelName'].touched}">
+                    <input type="number" class="form-control" formControlName="carYear"
+                           [ngClass]="{'invalid':  cartsForm.controls['carYear'].invalid && cartsForm.controls['carYear'].touched}">
+                    <button type="button" class="btn btn-danger" (click)="deleteCar(i)">
+                      <img src="/assets/trash.svg" alt="">
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="addCar()">
+                <img src="/assets/plus.svg" alt="">
+                Добфвить автомобмть
+              </button>
+              <button
+                *ngIf="!isUpdate"
+                (click)="submit()"
+                data-bs-dismiss="modal"
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="formOwners.invalid"
+              >
+                <img src="/assets/save.svg" alt="">
+                Сохронить
+              </button>
+              <button
+                *ngIf="isUpdate"
+                (click)="updateOwner()"
+                data-bs-dismiss="modal"
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="formOwners.invalid"
+              >
+                <img src="/assets/save.svg" alt="">
+                Сохронить изминения
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                (click)="closeForm()">Закрыть
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
