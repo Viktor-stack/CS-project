@@ -13,7 +13,7 @@ export class FormModalComponent implements OnInit, OnChanges {
   @Input("ownerId") ownerId: number
   @Output("isColor") isColor = new EventEmitter<boolean>()
   @Output("numberItem") numberItem = new EventEmitter<any>()
-  @Output("owners") owners = new EventEmitter<OwnerEntity>()
+  @Output("owners") owners = new EventEmitter<OwnerEntity[]>()
   owner: OwnerEntity;
   isUpdate = false
   formButton = this.fb.group({
@@ -36,8 +36,8 @@ export class FormModalComponent implements OnInit, OnChanges {
 
   addCar() {
     let cartsForm = this.fb.group({
-      stateNumber: ['', Validators.required, Validators.maxLength(8)],
-      manufacturerName: ['', Validators.required, Validators.maxLength(8)],
+      stateNumber: ['', [Validators.required, Validators.maxLength(8)]],
+      manufacturerName: ['', [Validators.required, Validators.maxLength(8)]],
       modelName: ['', Validators.required],
       carYear: ['', Validators.required]
     });
@@ -92,7 +92,7 @@ export class FormModalComponent implements OnInit, OnChanges {
   submit() {
     let owner: OwnerEntity = this.formOwners.value
     this.ownerService.createOwner(owner.aLastName, owner.aFirstName, owner.aMiddleName, owner.aCars).subscribe()
-    this.ownerService.getOwners().subscribe((owners: OwnerEntity) => {
+    this.ownerService.getOwners().subscribe((owners: OwnerEntity[]) => {
       this.owners.emit(owners)
     })
   }
@@ -104,7 +104,7 @@ export class FormModalComponent implements OnInit, OnChanges {
     this.isUpdate = false
     this.ownerService.editOwner(owner).subscribe()
     this.numberItem.emit(null)
-    this.ownerService.getOwners().subscribe((owners: OwnerEntity) => {
+    this.ownerService.getOwners().subscribe((owners: OwnerEntity[]) => {
       this.owners.emit(owners)
     })
   }
@@ -115,7 +115,7 @@ export class FormModalComponent implements OnInit, OnChanges {
     this.ownerService.deleteOwner(this.ownerId).subscribe()
     this.formOwners.reset()
     this.formButton.reset()
-    this.ownerService.getOwners().subscribe((owners: OwnerEntity) => {
+    this.ownerService.getOwners().subscribe((owners: OwnerEntity[]) => {
       this.owners.emit(owners)
     })
   }
